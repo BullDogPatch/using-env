@@ -29,12 +29,14 @@ app.get('/cat-images', async (req, res) => {
   res.json(data.results);
 });
 
-app.listen(8080, () => {
-  console.log(`Server running on port 8080`);
+app.get('/flamingo-images', async (req, res) => {
+  const API = `https://api.unsplash.com/search/photos?client_id=${process.env.UNSPLASH_ACCESS_KEY}&query=flamingo`;
+  const response = await fetch(API);
+  const data = await response.json();
+
+  res.json(data.results);
 });
 
-const dbConnectionString = process.env.DATABASE_URL;
-
-const db = new pg.Pool({
-  connectionString: dbConnectionString,
+app.listen(8080, () => {
+  console.log(`Server running on port 8080`);
 });
