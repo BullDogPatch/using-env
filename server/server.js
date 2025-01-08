@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import pg from 'pg';
 
 const app = express();
 dotenv.config();
@@ -30,4 +31,10 @@ app.get('/cat-images', async (req, res) => {
 
 app.listen(8080, () => {
   console.log(`Server running on port 8080`);
+});
+
+const dbConnectionString = process.env.DATABASE_URL;
+
+const db = new pg.Pool({
+  connectionString: dbConnectionString,
 });
